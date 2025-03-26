@@ -1,30 +1,47 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { IRadioListParams, IRadioStation } from '../interface/IRadio';
 import { RadioCard } from '../components/RadioCard';
 import { Pagination } from '../components/Pagination';
 import { useRadios } from '../hooks/useRadios';
+import { fetchRadioList } from '../api/radioListRequest';
 
 export const RadioList = () => {
+  const queryClient = useQueryClient();
   const [params, setParams] = useState<IRadioListParams>({
     limit: 10,
     offset: 0,
   });
 
-  const { data: radios, isLoading, isError } = useRadios(params);
+  useEffect(() => {
+    queryClient.prefetchQuery({
+      queryKey: ['radios', params],
+      queryFn: () => fetchRadioList(params),
+    });
+  }, [queryClient]);
+
+  const { data, isLoading, isError } = useRadios(params);
 
   const handlePageChange = (newOffset: number) => {
-    setParams(prev => ({ ...prev, offset: newOffset }));
+    if (!isLoading) {
+      setParams(prev => ({ ...prev, offset: newOffset }));
+    }
   };
 
-  if (isLoading) return <div className="text-center py-8">Loading stations...</div>;
-  if (isError) return <div className="text-red-500 text-center py-8">Error loading radio stations</div>;
-
-  return (
+  if (isError) return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6">Radio Stations</h1>
+      <div className="text-red-500 text-center py-8">
+        Error loading radio stations. Please try again.
+      </div>
+    </div>
+  );
+
+  if (!isLoading && data) return (
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-6">Radio Browser</h1>
       
       <div className="grid gap-4 mb-6">
-        {radios?.map((radio: IRadioStation) => (
+        {data?.stations.map((radio: IRadioStation) => (
           <RadioCard key={radio.stationuuid} radio={radio} />
         ))}
       </div>
@@ -32,7 +49,8 @@ export const RadioList = () => {
       <Pagination 
         currentOffset={params.offset || 0}
         limit={params.limit || 10}
-        totalItems={radios?.length || 0}
+        hasMore={data?.hasMore || false}
+        isLoading={isLoading}
         onChange={handlePageChange}
       />
     </div>

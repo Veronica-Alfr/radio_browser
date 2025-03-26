@@ -4,9 +4,13 @@ import { fetchRadioList } from '../api/radioListRequest';
 
 export const useRadios = (params: IRadioListParams = {}) => {
   return useQuery({
-    queryKey: ['radiosList', params],
+    queryKey: ['radios', params],
     queryFn: () => fetchRadioList(params),
-    staleTime: 60 * 1000,
-    placeholderData: previousData => previousData,
+    placeholderData: (previousData) => {
+      return previousData || { stations: [], hasMore: true };
+    },
+    staleTime: 5000,
+    gcTime: 1000 * 60 * 10, // 10 minutos
+    retry: 2, // Tentar 2 vezes antes de falhar
   });
 };

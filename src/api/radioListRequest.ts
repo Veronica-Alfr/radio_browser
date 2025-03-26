@@ -6,24 +6,36 @@ export const apiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  timeout: 20000,
 });
 
-export const fetchRadioList = async (params: IRadioListParams = {}): Promise<IRadioStation[]> => {
-    const { limit = 10, offset = 0, ...filters } = params;
-    
-    const response = await apiClient.get<IRadioStation[]>('/stations/search', {
-      params: {
-        ...filters,
-        limit,
-        offset,
-        hidebroken: true,
-      },
-    });
+// Interceptor para tratamento global de erros
+apiClient.interceptors.response.use(
+  response => response,
+  error => {
+    console.error('API Error:', error);
+    return Promise.reject(error);
+  }
+);
 
-    console.log(response.data)
+export const fetchRadioList = async (
+  params: IRadioListParams
+): Promise<{ stations: IRadioStation[]; hasMore: boolean }> => {
+  const { limit = 10, offset = 0, ...filters } = params;
 
-    const totalCount = Number(response.headers['x-total-count']) || 0;
-    console.log('totalCount =>', totalCount)
+  const response = await apiClient.get<IRadioStation[]>('/stations/search', {
+    params: {
+      ...filters,
+      limit: limit + 1,
+      offset,
+      hidebroken: true,
+    },
+  });
 
-    return response.data;
+  console.log('data =>', response.data)
+
+  return {
+    stations: response.data.slice(0, limit),
+    hasMore: response.data.length > limit,
+  };
 };

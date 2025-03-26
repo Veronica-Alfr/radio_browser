@@ -8,14 +8,15 @@ export const RadioCard = ({radio}: IRadioCard) => {
           <img 
             src={radio.favicon} 
             alt={radio.name}
+            loading="lazy"
             className="w-12 h-12 object-cover rounded"
-            onError={(e) => (e.currentTarget.src = '/placeholder.png')}
+            onError={(e) => (e.currentTarget.src = '/placeholder.png')} // add uma imagem padrão aqui
           />
         )}
         <div className="flex-1">
           <h3 className="font-bold">{radio.name}</h3>
           <p className="text-sm text-gray-600">
-            {radio.country} - {radio.language}
+            {radio.country}
           </p>
         </div>
         <button className="px-3 py-1 bg-blue-500 text-white rounded">
