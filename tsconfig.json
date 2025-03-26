@@ -9,4 +9,7 @@
     "esModuleInterop": true,
     "jsx": "react-jsx",
   },
+  "include": [
+    "./types",
+  ]
 }

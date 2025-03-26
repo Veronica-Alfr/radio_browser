@@ -10,7 +10,6 @@ export const RadioCard = ({radio}: IRadioCard) => {
             alt={radio.name}
             loading="lazy"
             className="w-12 h-12 object-cover rounded"
-            onError={(e) => (e.currentTarget.src = '/placeholder.png')} // add uma imagem padrão aqui
           />
         )}
         <div className="flex-1">
