@@ -7,7 +7,7 @@ export const useRadios = (params: IRadioListParams = {}) => {
     queryKey: ['radios', params],
     queryFn: () => fetchRadioList(params),
     placeholderData: (previousData) => {
-      return previousData || { stations: [], hasMore: true };
+      return previousData || { stations: [], totalItems: 0 };
     },
     staleTime: 5000,
     gcTime: 1000 * 60 * 10, // 10 minutos

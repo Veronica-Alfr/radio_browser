@@ -2,6 +2,6 @@ export interface IPagination {
     currentOffset: number;
     isLoading: boolean;
     limit: number;
-    hasMore: boolean;
+    totalItems: number;
     onChange: (newOffset: number) => void;
 };

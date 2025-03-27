@@ -1,79 +1,69 @@
 import { IPagination } from "../interface/IPagination";
 
-export const Pagination = ({ currentOffset, limit, hasMore, isLoading, onChange }: IPagination) => {
+export const Pagination = ({ 
+  currentOffset, 
+  limit, 
+  totalItems,
+  isLoading, 
+  onChange 
+}: IPagination) => {
   const currentPage = Math.floor(currentOffset / limit) + 1;
   const maxPageButtons = 5;
+  const totalPages = Math.ceil(totalItems / limit);
 
   const getPageNumbers = () => {
-    const pages = [];
     const startPage = Math.max(1, currentPage - Math.floor(maxPageButtons / 2));
-
-    for (let i = 0; i < maxPageButtons; i++) {
-      const page = startPage + i;
-      if (page > 0) {
-        pages.push(page);
-      }
-    }
-
-    return pages;
-  };
-
-  const handlePrevious = () => {
-    if (currentOffset >= limit) {
-      onChange(currentOffset - limit);
-    }
-  };
-
-  const handleNext = () => {
-    if (hasMore) {
-      onChange(currentOffset + limit);
-    }
+    const endPage = Math.min(startPage + maxPageButtons - 1, totalPages);
+    
+    return Array.from(
+      { length: endPage - startPage + 1 },
+      (_, i) => startPage + i
+    );
   };
 
   const handlePageChange = (pageNumber: number) => {
-    const newOffset = (pageNumber - 1) * limit;
-    onChange(newOffset);
-  };
-
-  const handleFirstPage = () => {
-    onChange(0);
+    onChange((pageNumber - 1) * limit);
   };
 
   return (
-    <div className="flex items-center justify-center gap-2 mt-6">
+    <div className="flex items-center justify-center gap-2 mt-8">
       <button
-        onClick={handlePrevious}
+        onClick={() => onChange(currentOffset - limit)}
         disabled={currentOffset === 0 || isLoading}
-        className="px-4 py-2 rounded-md border border-gray-300 disabled:opacity-50 hover:bg-gray-50"
+        className={`px-4 py-2 rounded-md border border-gray-800 bg-gray-900 text-white disabled:opacity-50 hover:bg-gray-800 transition-colors`}
       >
         Previous
       </button>
 
-      {currentPage > 3 && (
+      {currentPage > 3 && totalPages > maxPageButtons && (
         <button
-          onClick={handleFirstPage}
+          onClick={() => handlePageChange(1)}
           disabled={isLoading}
-          className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-50"
+          className="px-4 py-2 rounded-md border border-gray-800 bg-gray-900 text-white hover:bg-gray-800 transition-colors"
         >
-          1° Page
+          1
         </button>
       )}
 
-      {getPageNumbers().map((page) => (
+      {getPageNumbers().map(page => (
         <button
           key={page}
           onClick={() => handlePageChange(page)}
           disabled={isLoading}
-          className={`px-4 py-2 rounded-md border ${currentPage === page ? 'bg-blue-500 text-white' : 'border-gray-300'} disabled:opacity-50 hover:bg-gray-50`}
+          className={`px-4 py-2 rounded-md border ${
+            currentPage === page 
+              ? 'bg-black text-white border-black' 
+              : 'border-gray-800 bg-gray-900 text-white hover:bg-gray-800'
+          }`}
         >
           {page}
         </button>
       ))}
 
       <button
-        onClick={handleNext}
-        disabled={!hasMore || isLoading}
-        className="px-4 py-2 rounded-md border border-gray-300 disabled:opacity-50 hover:bg-gray-50"
+        onClick={() => onChange(currentOffset + limit)}
+        disabled={isLoading || currentOffset + limit >= totalItems}
+        className={`px-4 py-2 rounded-md border border-gray-800 bg-gray-900 text-white disabled:opacity-50 hover:bg-gray-800 transition-colors`}
       >
         Next
       </button>

@@ -6,7 +6,7 @@ import { Pagination } from '../components/Pagination';
 import { useRadios } from '../hooks/useRadios';
 import { fetchRadioList } from '../api/radioListRequest';
 
-export const RadioList = () => {
+export const RadioList: React.FC = () => {
   const queryClient = useQueryClient();
   const [params, setParams] = useState<IRadioListParams>({
     limit: 10,
@@ -38,8 +38,10 @@ export const RadioList = () => {
 
   if (!isLoading && data) return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6">Radio Browser</h1>
-      
+      <h1 className="text-3xl text-center font-bold mb-6">Radio Browser</h1>
+      <h2 className="text-lg md:text-xl text-center text-gray-600 font-medium italic mb-8">
+        Browse our collection of stations and find your perfect soundtrack</h2>
+
       <div className="grid gap-4 mb-6">
         {data?.stations.map((radio: IRadioStation) => (
           <RadioCard key={radio.stationuuid} radio={radio} />
@@ -49,7 +51,7 @@ export const RadioList = () => {
       <Pagination 
         currentOffset={params.offset || 0}
         limit={params.limit || 10}
-        hasMore={data?.hasMore || false}
+        totalItems={1000}
         isLoading={isLoading}
         onChange={handlePageChange}
       />

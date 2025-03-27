@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface IRadioStation {
     changeuuid: string;
     stationuuid: string;
@@ -36,7 +38,7 @@ export interface IRadioStation {
     geo_distance: number | null;
     has_extended_info: boolean;
 }
-  
+
 export interface IRadioListParams {
     name?: string;
     country?: string;
@@ -48,3 +50,7 @@ export interface IRadioListParams {
 export interface IRadioCard {
     radio: IRadioStation;
 };
+
+export interface IRadioProviderProps {
+    children: ReactNode;
+}
