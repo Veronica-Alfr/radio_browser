@@ -10,7 +10,7 @@ export const useRadios = (params: IRadioListParams = {}) => {
       return previousData || { stations: [], totalItems: 0 };
     },
     staleTime: 5000,
-    gcTime: 1000 * 60 * 10, // 10 minutos
-    retry: 2, // Tentar 2 vezes antes de falhar
+    gcTime: 1000 * 60 * 10,
+    retry: 2,
   });
 };

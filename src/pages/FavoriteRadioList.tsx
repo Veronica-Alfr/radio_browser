@@ -18,10 +18,8 @@ export const FavoriteRadioList = () => {
   return (
     <div className="relative container mx-auto p-4">
 
-      {/* Botão de menu hambúrguer */}
       <HamburgerMenu />
 
-      {/* Conteúdo da lista de favoritos */}
       <h1 className="text-3xl text-center font-bold mb-2">Favorite Stations</h1>
       <h2 className="text-lg text-center text-gray-600 italic mb-8">
         {favorites.length === 0

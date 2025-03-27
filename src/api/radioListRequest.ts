@@ -32,6 +32,8 @@ export const fetchRadioList = async (
     },
   });
 
+  // Colocar tratativa de erro
+
   console.log('data =>', response.data)
 
   return {
