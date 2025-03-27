@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { IRadioListParams, IRadioStation } from '../interface/IRadio';
-import { RadioCard } from '../components/RadioCard';
-import { Pagination } from '../components/Pagination';
+import { RadioCard } from '../components/radio/RadioCard';
+import { Pagination } from '../components/pagination/Pagination';
 import { useRadios } from '../hooks/useRadios';
 import { fetchRadioList } from '../api/radioListRequest';
 

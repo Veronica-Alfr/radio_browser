@@ -37,7 +37,7 @@ export interface IRadioStation {
     geo_long: number | null;
     geo_distance: number | null;
     has_extended_info: boolean;
-}
+};
 
 export interface IRadioListParams {
     name?: string;
@@ -45,7 +45,7 @@ export interface IRadioListParams {
     language?: string;
     limit?: number;
     offset?: number;
-}
+};
 
 export interface IRadioCard {
     radio: IRadioStation;
@@ -53,4 +53,8 @@ export interface IRadioCard {
 
 export interface IRadioProviderProps {
     children: ReactNode;
-}
+};
+
+export interface IRadioListCompactProps {
+    isSmallScreen: boolean
+};

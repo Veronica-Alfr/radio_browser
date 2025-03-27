@@ -9,8 +9,11 @@ export default {
       fontFamily: {
         mulish: ["Mulish", 'sans-serif'],
       },
+      
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar')
+  ],
 }
 

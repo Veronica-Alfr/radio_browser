@@ -33,7 +33,6 @@ export const fetchRadioList = async (
   });
 
   console.log('data =>', response.data)
-  console.log('length =>', response.data.length)
 
   return {
     stations: response.data,

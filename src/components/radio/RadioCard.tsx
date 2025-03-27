@@ -1,7 +1,7 @@
 import { FaPlay, FaPause } from "react-icons/fa6";
 import { RiHeartAddFill, RiHeartAddLine } from "react-icons/ri";
-import { useRadioContext } from "../hooks/useRadiosContext";
-import { IRadioCard } from "../interface/IRadio";
+import { useRadioContext } from "../../hooks/useRadiosContext";
+import { IRadioCard } from "../../interface/IRadio";
 
 export const RadioCard = ({ radio }: IRadioCard) => {
   const { currentStation, isPlaying, favorites, togglePlay, toggleFavorite } = useRadioContext();
@@ -25,9 +25,9 @@ export const RadioCard = ({ radio }: IRadioCard) => {
         )}
 
         <div className="flex-1 min-w-0">
-          <h2 className="font-bold truncate text-gray-900">{radio.name}</h2>
+          <h2 className="font-bold truncate text-gray-900">{radio.name || "Unknown Radio"}</h2>
           <p className="text-sm text-gray-600 truncate">
-            {radio.country || ""}
+          {radio.country || radio.language || ""}
           </p>
         </div>
 
