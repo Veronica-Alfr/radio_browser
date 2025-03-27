@@ -38,7 +38,7 @@ export const RadioListCompact: React.FC<IRadioListCompactProps> = ({ isSmallScre
 
   if (!isLoading && data) return (
     <div className="container mx-auto">
-      <div className="grid gap-4 mb-6 h-[calc(100vh-200px)] overflow-y-auto 
+      <div className="grid p-4 gap-4 mb-6 h-[calc(100vh-200px)] overflow-y-auto 
         scrollbar-thin scrollbar-thumb-white scrollbar-track-transparent">
         {data?.stations.map((radio: IRadioStation) => (
           <RadioCardCompact key={radio.stationuuid} radio={radio} />

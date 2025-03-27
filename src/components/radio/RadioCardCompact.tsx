@@ -6,22 +6,34 @@ export const RadioCardCompact = ({ radio }: IRadioCard) => {
   const { favorites, toggleFavorite } = useRadioContext();
   const isFavorite = favorites.some(fav => fav.stationuuid === radio.stationuuid);
 
+  const truncateText = (text: string | undefined | null) => {
+    if (!text || text.trim().length === 0) return "Unknown Radio";
+    return text.length > 25 ? `${text.substring(0, 25)}...` : text;
+  };
+
+  const displayText = truncateText(radio.name);
+
   return (
-    <div className="w-full max-w-sm mx-auto border p-2 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 bg-white">
-      <div className="flex items-center justify-between gap-2">
-        <div className="flex-1 min-w-0">
-          <h2 className="text-sm font-semibold truncate text-gray-900">{radio.name || radio.country || radio.language || "Unknown Radio"}</h2>
+    <div className="w-full h-[50px] min-h-[50px] max-h-[50px] flex items-center border p-2 rounded-lg bg-white">
+      <div className="flex items-center justify-between w-full gap-2 overflow-hidden">
+        <div className="flex-1 min-w-0 overflow-hidden">
+          <h2 
+            className="text-sm font-semibold truncate text-gray-900"
+            title={displayText}
+          >
+            {displayText}
+          </h2>
         </div>
 
         <button
           onClick={() => toggleFavorite(radio)}
-          className="p-1 text-lg hover:scale-110 transition-transform"
-          aria-label="Heart Icon"
+          className="p-1 text-lg hover:scale-110 transition-transform flex-shrink-0"
+          aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
         >
           {isFavorite ? (
-            <RiHeartAddFill className="text-red-500" aria-hidden="true" />
+            <RiHeartAddFill className="text-red-500" />
           ) : (
-            <RiHeartAddLine className="text-gray-700" aria-hidden="true" />
+            <RiHeartAddLine className="text-gray-700" />
           )}
         </button>
       </div>
