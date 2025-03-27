@@ -54,10 +54,6 @@ export const Pagination = ({
         1
       </button>
 
-      {currentPage > 2 + Math.floor(middleButtonsCount/2) && totalPages > middleButtonsCount + 2 && (
-        <span className="px-1">...</span>
-      )}
-
       {getMiddleButtons().map(page => (
         <button
           key={page}
@@ -72,10 +68,6 @@ export const Pagination = ({
           {page}
         </button>
       ))}
-
-      {currentPage < totalPages - 1 - Math.floor(middleButtonsCount/2) && totalPages > middleButtonsCount + 2 && (
-        <span className="px-1">...</span>
-      )}
 
       {totalPages > 1 && (
         <button
