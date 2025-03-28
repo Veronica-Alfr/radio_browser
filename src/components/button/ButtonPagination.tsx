@@ -10,7 +10,7 @@ export const ButtonPagination: React.FC<IButtonEnumeratePage> = ({ isSmallScreen
         ${
           isSmallScreen 
             ? 'text-xs px-1.5 py-0.5 min-w-[24px] h-6'
-            : 'text-xs px-2 py-0.5 min-w-[30px] h-8'
+            : 'text-sm px-2 py-0.5 min-w-[30px] h-10'
         }
         disabled:opacity-40`}
     >

@@ -32,7 +32,7 @@ export const Pagination = ({currentOffset, limit, totalItems, isLoading, isSmall
         aria-label="Previous page"
         className={`rounded-md border border-gray-800 bg-gray-900 w-10 flex items-center justify-center 
           disabled:opacity-50 hover:bg-gray-800 transition-colors ${
-          isSmallScreen ? 'h-7' : 'h-8'
+          isSmallScreen ? 'h-7' : 'h-10'
         }`}
       >
         <SlArrowLeft className={`text-white ${
@@ -80,7 +80,7 @@ export const Pagination = ({currentOffset, limit, totalItems, isLoading, isSmall
         aria-label="Next page"
         className={`rounded-md border border-gray-800 bg-gray-900 w-10 flex items-center justify-center 
           disabled:opacity-50 hover:bg-gray-800 transition-colors ${
-          isSmallScreen ? 'h-7' : 'h-8'
+          isSmallScreen ? 'h-7' : 'h-10'
         }`}
       >
         <SlArrowRight className={`text-white ${isLoading || currentOffset + limit >= totalItems ? 'opacity-50' : ''}`} />

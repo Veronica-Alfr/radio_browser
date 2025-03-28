@@ -9,7 +9,7 @@ import { fetchRadioList } from '../api/radioListRequest';
 export const RadioList: React.FC = () => {
   const queryClient = useQueryClient();
   const [params, setParams] = useState<IRadioListParams>({
-    limit: 10,
+    limit: 9,
     offset: 0,
   });
 
@@ -18,7 +18,7 @@ export const RadioList: React.FC = () => {
       queryKey: ['radios', params],
       queryFn: () => fetchRadioList(params),
     });
-  }, [queryClient]);
+  }, [queryClient, params]);
 
   const { data, isLoading, isError } = useRadios(params);
 
@@ -37,12 +37,16 @@ export const RadioList: React.FC = () => {
   );
 
   if (!isLoading && data) return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl text-center font-bold mb-6">Radio Browser</h1>
-      <h2 className="text-lg md:text-xl text-center text-gray-600 font-medium italic mb-8">
-        Browse our collection of stations and find your perfect soundtrack</h2>
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <h1 className="text-2xl sm:text-3xl lg:text-4xl text-center font-bold mb-4 sm:mb-6">
+        Radio Browser
+      </h1>
+      
+      <h2 className="text-base sm:text-lg lg:text-xl text-center text-gray-600 font-medium italic mb-6 sm:mb-8">
+        Browse our collection of stations and find your perfect soundtrack
+      </h2>
 
-      <div className="grid gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-6 sm:mb-8 justify-items-center">
         {data?.stations.map((radio: IRadioStation) => (
           <RadioCard key={radio.stationuuid} radio={radio} />
         ))}
@@ -50,11 +54,13 @@ export const RadioList: React.FC = () => {
 
       <Pagination 
         currentOffset={params.offset || 0}
-        limit={params.limit || 10}
-        totalItems={1000}
+        limit={params.limit || 9}
+        totalItems={54080}
         isLoading={isLoading}
         onChange={handlePageChange}
       />
     </div>
   );
+
+  return null;
 };
