@@ -14,11 +14,16 @@ export const HamburgerMenu: React.FC = () => {
 
   return (
     <div>
-      <button onClick={toggleMenu} className="p-4 text-2xl">
-        {!isOpen && <GiHamburgerMenu className='text-3xl'/>}
+      <button onClick={toggleMenu} className="p-4">
+        {!isOpen && <GiHamburgerMenu className="text-3xl" />}
       </button>
 
-      <div className={`fixed top-0 left-0 w-72 h-full bg-gray-800 text-white transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+      <div className={`
+        fixed top-0 left-0 h-full bg-gray-800 text-white 
+        transition-transform duration-300
+        ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+        w-full md:w-72
+      `}>
         <div className="flex flex-col h-full">
           <div className="p-4 border-b border-gray-700 flex justify-between items-center">
             <h2 className="text-xl font-bold">Menu</h2>
@@ -28,7 +33,13 @@ export const HamburgerMenu: React.FC = () => {
           </div>
 
           <div className="flex-1 flex flex-col">
-            <Link to="/" className="text-lg hover:bg-gray-700 p-3">Home</Link>
+            <Link 
+              to="/" 
+              className="text-lg hover:bg-gray-700 p-3 border-b border-gray-700"
+              onClick={toggleMenu}
+            >
+              Home
+            </Link>
             
             <div className="flex flex-col flex-1">
               <button 

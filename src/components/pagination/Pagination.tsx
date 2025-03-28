@@ -1,14 +1,8 @@
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import { IPagination } from "../../interface/IPagination";
+import { ButtonPagination } from "../button/ButtonPagination";
 
-export const Pagination = ({ 
-  currentOffset, 
-  limit, 
-  totalItems,
-  isLoading, 
-  isSmallScreen,
-  onChange,
-}: IPagination) => {
+export const Pagination = ({currentOffset, limit, totalItems, isLoading, isSmallScreen, onChange}: IPagination) => {
   const currentPage = Math.floor(currentOffset / limit) + 1;
   const totalPages = Math.ceil(totalItems / limit);
   
@@ -21,7 +15,7 @@ export const Pagination = ({
   const getMiddleButtons = () => {
     if (totalPages <= 2) return [];
     
-    let start = Math.max(2, currentPage - Math.floor(middleButtonsCount/2));
+    let start = Math.max(2, currentPage - Math.floor(middleButtonsCount / 2));
     let end = Math.min(totalPages - 1, start + middleButtonsCount - 1);
     
     start = Math.max(2, end - middleButtonsCount + 1);
@@ -31,67 +25,67 @@ export const Pagination = ({
 
   return (
     <div className={`flex items-center justify-center gap-1 ${isSmallScreen ? 'text-sm' : 'md:gap-2'}`}>
+      
       <button
-        onClick={() => onChange(currentOffset - limit)}
+        onClick={() => !isLoading && currentOffset > 0 && onChange(currentOffset - limit)}
         disabled={currentOffset === 0 || isLoading}
-        className={`flex items-center justify-center px-2 py-1 rounded-md border border-gray-800 
-          bg-gray-900 text-white disabled:opacity-50 hover:bg-gray-800 transition-colors ${
-          isSmallScreen ? 'text-xs' : 'text-sm'
+        aria-label="Previous page"
+        className={`rounded-md border border-gray-800 bg-gray-900 w-10 flex items-center justify-center 
+          disabled:opacity-50 hover:bg-gray-800 transition-colors ${
+          isSmallScreen ? 'h-7' : 'h-8'
         }`}
       >
-        <SlArrowLeft className={isSmallScreen ? "text-base" : "text-xl"} />
+        <SlArrowLeft className={`text-white ${
+          currentOffset === 0 || isLoading ? 'opacity-50' : ''
+        } ${
+          isSmallScreen ? 'text-base' : 'text-lg'
+        }`} />
       </button>
 
-      <button
+      <ButtonPagination
         onClick={() => handlePageChange(1)}
         disabled={isLoading}
-        className={`px-2 py-1 rounded-md border ${
-          currentPage === 1
-            ? 'bg-black text-white border-black'
-            : 'border-gray-800 bg-gray-900 text-white hover:bg-gray-800'
-        } ${isSmallScreen ? 'text-xs' : 'text-sm'}`}
+        isSmallScreen={isSmallScreen}
+        isActive={currentPage === 1}
       >
         1
-      </button>
+      </ButtonPagination>
 
       {getMiddleButtons().map(page => (
-        <button
+        <ButtonPagination
           key={page}
           onClick={() => handlePageChange(page)}
           disabled={isLoading}
-          className={`px-2 py-1 rounded-md border ${
-            currentPage === page
-              ? 'bg-black text-white border-black'
-              : 'border-gray-800 bg-gray-900 text-white hover:bg-gray-800'
-          } ${isSmallScreen ? 'text-xs' : 'text-sm'}`}
+          isSmallScreen={isSmallScreen}
+          isActive={currentPage === page}
         >
           {page}
-        </button>
+        </ButtonPagination>
       ))}
 
       {totalPages > 1 && (
-        <button
+        <ButtonPagination
           onClick={() => handlePageChange(totalPages)}
           disabled={isLoading}
-          className={`px-2 py-1 rounded-md border ${
-            currentPage === totalPages
-              ? 'bg-black text-white border-black'
-              : 'border-gray-800 bg-gray-900 text-white hover:bg-gray-800'
-          } ${isSmallScreen ? 'text-xs' : 'text-sm'}`}
+          isSmallScreen={isSmallScreen}
+          isActive={currentPage === totalPages}
         >
           {totalPages}
-        </button>
+        </ButtonPagination>
       )}
 
       <button
-        onClick={() => onChange(currentOffset + limit)}
+        onClick={() => !isLoading && currentOffset + limit < totalItems && onChange(currentOffset + limit)}
         disabled={isLoading || currentOffset + limit >= totalItems}
-        className={`flex items-center justify-center px-2 py-1 rounded-md border border-gray-800 bg-gray-900 text-white disabled:opacity-50 hover:bg-gray-800 transition-colors ${
-          isSmallScreen ? 'text-xs' : 'text-sm'
+        aria-label="Next page"
+        className={`rounded-md border border-gray-800 bg-gray-900 w-10 flex items-center justify-center 
+          disabled:opacity-50 hover:bg-gray-800 transition-colors ${
+          isSmallScreen ? 'h-7' : 'h-8'
         }`}
       >
-        <SlArrowRight className={isSmallScreen ? "text-base" : "text-xl"} height={isSmallScreen ? 16 : 24} />
+        <SlArrowRight className={`text-white ${isLoading || currentOffset + limit >= totalItems ? 'opacity-50' : ''}`} />
       </button>
+      
     </div>
   );
 };
