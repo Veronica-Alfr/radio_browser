@@ -5,7 +5,7 @@ import { ButtonPagination } from "../button/ButtonPagination";
 export const Pagination = ({currentOffset, limit, totalItems, isLoading, isSmallScreen, onChange}: IPagination) => {
   const currentPage = Math.floor(currentOffset / limit) + 1;
   const totalPages = Math.ceil(totalItems / limit);
-  
+
   const middleButtonsCount = isSmallScreen ? 2 : 3;
 
   const handlePageChange = (pageNumber: number) => {
@@ -14,12 +14,12 @@ export const Pagination = ({currentOffset, limit, totalItems, isLoading, isSmall
 
   const getMiddleButtons = () => {
     if (totalPages <= 2) return [];
-    
+
     let start = Math.max(2, currentPage - Math.floor(middleButtonsCount / 2));
     let end = Math.min(totalPages - 1, start + middleButtonsCount - 1);
-    
+
     start = Math.max(2, end - middleButtonsCount + 1);
-    
+
     return Array.from({ length: end - start + 1 }, (_, i) => start + i);
   };
 

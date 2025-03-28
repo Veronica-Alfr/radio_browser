@@ -18,7 +18,7 @@ apiClient.interceptors.response.use(
   }
 );
 
-export const fetchRadioList = async (
+export const fetchRadioListPerTen = async (
   params: IRadioListParams
 ): Promise<{ stations: IRadioStation[]; totalItems: number }> => {
   const { limit = 10, offset = 0, ...filters } = params;
@@ -39,5 +39,18 @@ export const fetchRadioList = async (
   return {
     stations: response.data,
     totalItems: 1000,
+  };
+};
+
+export const fetchRadioList = async (): Promise<{ stations: IRadioStation[]; totalItems: number }> => {
+  const response = await apiClient.get<IRadioStation[]>('/stations/search', {
+    params: {
+      hidebroken: true,
+    },
+  });
+
+  return {
+    stations: response.data,
+    totalItems: response.data.length,
   };
 };
