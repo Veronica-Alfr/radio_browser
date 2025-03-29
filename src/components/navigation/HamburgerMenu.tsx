@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { GiHamburgerMenu } from "react-icons/gi";
-import { GrClose } from "react-icons/gr";
-import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+import { GiHamburgerMenu } from 'react-icons/gi';
+import { GrClose } from 'react-icons/gr';
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { RadioListCompact } from '../radio/RadioListCompact';
 
@@ -20,7 +20,7 @@ export const HamburgerMenu: React.FC = () => {
 
       <div className={`
         fixed top-0 left-0 h-full bg-gray-800 text-white 
-        transition-transform duration-300
+        transition-transform duration-300 z-50
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
         w-full md:w-72
       `}>
@@ -32,7 +32,7 @@ export const HamburgerMenu: React.FC = () => {
             </button>
           </div>
 
-          <div className="flex-1 flex flex-col">
+          <div className="flex-1 flex flex-col overflow-hidden">
             <Link 
               to="/" 
               className="text-lg hover:bg-gray-700 p-3 border-b border-gray-700"
@@ -41,7 +41,7 @@ export const HamburgerMenu: React.FC = () => {
               Home
             </Link>
             
-            <div className="flex flex-col flex-1">
+            <div className="flex flex-col flex-1 overflow-hidden">
               <button 
                 onClick={toggleRadioList}
                 className="flex items-center justify-between text-lg hover:bg-gray-700 p-3 border-b border-gray-700"
@@ -54,11 +54,11 @@ export const HamburgerMenu: React.FC = () => {
                 )}
               </button>
               
-              <div className={`flex-1 ${showRadioList ? 'block' : 'hidden'}`}>
-                <div className="h-full overflow-y-auto">
-                  <RadioListCompact isSmallScreen={true} />
+              {showRadioList && (
+                <div className="flex-1 overflow-hidden">
+                  <RadioListCompact />
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>

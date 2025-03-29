@@ -14,7 +14,7 @@ export const RadioCardCompact = ({ radio }: IRadioCard) => {
   const displayText = truncateText(radio.name);
 
   return (
-    <div className="w-full h-[50px] min-h-[50px] max-h-[50px] flex items-center border p-2 rounded-lg bg-white">
+    <div className="w-full h-[50px] min-h-[50px] max-h-[50px] flex items-center border p-4 mb-2 rounded-lg bg-white">
       <div className="flex items-center justify-between w-full gap-2 overflow-hidden">
         <div className="flex-1 min-w-0 overflow-hidden">
           <h2 

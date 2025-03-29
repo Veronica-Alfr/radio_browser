@@ -40,9 +40,6 @@ export interface IRadioStation {
 };
 
 export interface IRadioListParams {
-    name?: string;
-    country?: string;
-    language?: string;
     limit?: number;
     offset?: number;
 };
