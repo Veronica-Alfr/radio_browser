@@ -58,19 +58,22 @@ export const RadioList: React.FC = () => {
       <h1 className="text-2xl sm:text-3xl lg:text-4xl text-center font-bold mb-4 sm:mb-6">
         Radio Browser
       </h1>
+
+      <h2 className="text-lg text-center text-gray-600 italic mb-8">
+        Browse our collection of stations and find your perfect soundtrack
+      </h2>
       
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
       {isLoading ? (
         <div className="text-center py-8">Loading radio stations...</div>
       ) : (
-        <>
+        <div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-6 sm:mb-8 justify-items-center">
             {paginatedStations.map((radio: IRadioStation) => (
               <RadioCard key={radio.stationuuid} radio={radio} />
             ))}
           </div>
-
           <Pagination
             currentOffset={currentPage * itemsPerPage}
             limit={itemsPerPage}
@@ -78,7 +81,7 @@ export const RadioList: React.FC = () => {
             isLoading={isLoading}
             onChange={handlePageChange}
           />
-        </>
+        </div>
       )}
     </div>
   );

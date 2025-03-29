@@ -36,7 +36,10 @@ export const RadioListCompact: React.FC = () => {
     if (!data?.stations) return [];
     return debouncedSearchTerm
       ? data.stations.filter((station: IRadioStation) =>
-          station.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()))
+          station.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+          station.country.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+          station.language.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+    )
       : data.stations;
   }, [data, debouncedSearchTerm]);
 

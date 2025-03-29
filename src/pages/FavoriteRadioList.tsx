@@ -1,55 +1,71 @@
-import { useState, useEffect } from 'react';
+import { useMemo, useState } from 'react';
 import { useRadioContext } from '../hooks/useRadiosContext';
 import { RadioCard } from '../components/radio/RadioCard';
 import { Pagination } from '../components/pagination/Pagination';
 import { HamburgerMenu } from '../components/navigation/HamburgerMenu';
-// import { useQueryClient } from '@tanstack/react-query';
-// import { fetchRadioOneThousand } from '../api/radioListRequest';
+import { useDebounce } from '../hooks/useDebounce';
+import { SearchBar } from '../components/search/SearchBar';
 
 const FAVORITES_PER_PAGE = 10;
 
 export const FavoriteRadioList = () => {
   const { favorites } = useRadioContext();
   const [currentOffset, setCurrentOffset] = useState(0);
-  // const queryClient = useQueryClient();
+  const [searchTerm, setSearchTerm] = useState('');
 
-  // useEffect(() => {
-  //   queryClient.prefetchQuery({
-  //     queryKey: ['radios-compact'],
-  //     queryFn: () => fetchRadioOneThousand({ limit: 100, offset: 0 }),
-  //   });
-  // }, [queryClient]);
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
-  const paginatedFavorites = favorites.slice(
+  const filteredFavoriteStations = useMemo(() => {
+    if (!favorites) return [];
+    return debouncedSearchTerm
+      ? favorites.filter((station) =>
+          station.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+          station.country.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+          station.language.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+        )
+      : favorites;
+  }, [favorites, debouncedSearchTerm]);
+
+  const paginatedFavorites = filteredFavoriteStations.slice(
     currentOffset,
     currentOffset + FAVORITES_PER_PAGE
   );
 
   return (
-    <div className="relative container mx-auto p-4">
-      <HamburgerMenu />
+    <div className="relative min-h-screen container mx-auto p-6 flex flex-col">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center mb-4">
+        <div className="mt-1">
+          <HamburgerMenu />
+        </div>
+        
+        <div className="flex-grow w-full text-center mt-4 sm:mt-0">
+          <h1 className="text-4xl font-bold">Favorite Stations</h1>
+          <h2 className="text-lg mt-2 text-gray-600 italic">
+            {favorites.length === 0
+              ? "You haven't favorited any stations yet"
+              : `Listen to your favorite stations anytime!`}
+          </h2>
+        </div>
+        
+        <div className="w-10 sm:w-0"></div>
+      </div>
 
-      <h1 className="text-3xl text-center font-bold mb-2">Favorite Stations</h1>
-      <h2 className="text-lg text-center text-gray-600 italic mb-8">
-        {favorites.length === 0
-          ? "You haven't favorited any stations yet"
-          : `Listen your favorite stations when you want!`}
-      </h2>
+      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-      <div className="space-y-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 overflow-y-auto flex-grow">
         {paginatedFavorites.map((station) => (
           <RadioCard key={station.stationuuid} radio={station} />
         ))}
       </div>
 
       {favorites.length > FAVORITES_PER_PAGE && (
-        <Pagination
-          currentOffset={currentOffset}
-          limit={FAVORITES_PER_PAGE}
-          totalItems={favorites.length}
-          isLoading={false}
-          onChange={setCurrentOffset}
-        />
+          <Pagination
+            currentOffset={currentOffset}
+            limit={FAVORITES_PER_PAGE}
+            totalItems={favorites.length}
+            isLoading={false}
+            onChange={setCurrentOffset}
+          />
       )}
     </div>
   );
