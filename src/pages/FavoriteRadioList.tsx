@@ -57,7 +57,7 @@ export const FavoriteRadioList = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {paginatedFavorites.map((station) => (
           <div key={station.stationuuid} className="w-full">
-            <RadioCard radio={station} />
+            <RadioCard radio={station} isEditable />
           </div>
         ))}
       </div>

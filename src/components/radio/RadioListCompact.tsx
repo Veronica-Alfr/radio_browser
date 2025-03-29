@@ -3,8 +3,8 @@ import { IRadioStation } from "../../interface/IRadio";
 import { Pagination } from "../pagination/Pagination";
 import { SearchBar } from "../search/SearchBar";
 import { RadioCardCompact } from "./RadioCardCompact";
-import { fetchRadioOneThousand } from "../../api/radioListRequest";
-import { useRadiosOneThousand } from "../../hooks/useRadios";
+import { fetchRadioOneHundred } from "../../api/radioListRequest";
+import { useRadiosOneHundred } from "../../hooks/useRadios";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -17,7 +17,7 @@ export const RadioListCompact: React.FC = () => {
 
   const params = {limit: itemsPerPage, offset: currentPage * itemsPerPage};
 
-  const { data, isLoading, isError } = useRadiosOneThousand(params);
+  const { data, isLoading, isError } = useRadiosOneHundred(params);
 
   useEffect(() => {
     const nextPage = currentPage + 1;
@@ -28,7 +28,7 @@ export const RadioListCompact: React.FC = () => {
 
     queryClient.prefetchQuery({
       queryKey: ['radios-compact', nextParams.offset],
-      queryFn: () => fetchRadioOneThousand(nextParams),
+      queryFn: () => fetchRadioOneHundred(nextParams),
     });
   }, [currentPage, queryClient]);
 
@@ -93,7 +93,7 @@ export const RadioListCompact: React.FC = () => {
         <Pagination
           currentOffset={currentPage * itemsPerPage}
           limit={itemsPerPage}
-          totalItems={data?.totalItems || 0}
+          totalItems={data?.totalItems || 100}
           isSmallScreen={true}
           isLoading={isLoading}
           onChange={handlePageChange}

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchRadioList, fetchRadioOneThousand } from '../api/radioListRequest';
+import { fetchRadioList, fetchRadioOneHundred } from '../api/radioListRequest';
 import { IRadioListParams } from '../interface/IRadio';
 
 export const useRadios = () => {
@@ -13,10 +13,10 @@ export const useRadios = () => {
   });
 };
 
-export const useRadiosOneThousand = (params: IRadioListParams) => {
+export const useRadiosOneHundred = (params: IRadioListParams) => {
   return useQuery({
     queryKey: ['radios-compact', params],
-    queryFn: () => fetchRadioOneThousand(params),
+    queryFn: () => fetchRadioOneHundred(params),
     placeholderData: { stations: [], totalItems: 0 },
     staleTime: 5000,
     gcTime: 1000 * 60 * 10,

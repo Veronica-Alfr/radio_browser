@@ -28,7 +28,7 @@ apiClient.interceptors.response.use(
   }
 );
 
-export const fetchRadioOneThousand = async (
+export const fetchRadioOneHundred = async (
   params: IRadioListParams
 ): Promise<{ stations: IRadioStation[]; totalItems: number }> => {
   try {
@@ -45,7 +45,7 @@ export const fetchRadioOneThousand = async (
 
     return {
       stations: response.data,
-      totalItems: 1000,
+      totalItems: 100,
     };
   } catch (error) {
     console.error('Error in fetchRadioOneThousand:', error);
