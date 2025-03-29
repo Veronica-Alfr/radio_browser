@@ -52,9 +52,11 @@ export const FavoriteRadioList = () => {
 
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 overflow-y-auto flex-grow">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 flex-grow justify-items-center">
         {paginatedFavorites.map((station) => (
-          <RadioCard key={station.stationuuid} radio={station} />
+          <div key={station.stationuuid} className="w-full max-w-lg min-w-[300px]">
+            <RadioCard radio={station} />
+          </div>
         ))}
       </div>
 
