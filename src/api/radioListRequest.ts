@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import { IRadioListParams, IRadioStation } from '../interface/IRadio';
 
 export const apiClient = axios.create({
@@ -9,44 +9,68 @@ export const apiClient = axios.create({
   timeout: 20000,
 });
 
-// Interceptor para tratamento global de erros
 apiClient.interceptors.response.use(
-  response => response,
-  error => {
+  (response: AxiosResponse) => response,
+  (error: AxiosError) => {
     console.error('API Error:', error);
+    
+    if (error.response) {
+      console.error('Response data:', error.response.data);
+      console.error('Status code:', error.response.status);
+      console.error('Headers:', error.response.headers);
+    } else if (error.request) {
+      console.error('Request:', error.request);
+    } else {
+      console.error('Error message:', error.message);
+    }
+    
     return Promise.reject(error);
   }
 );
 
-export const fetchRadioOneThousand = async (params: IRadioListParams): 
-  Promise<{ stations: IRadioStation[]; totalItems: number }> => {
+export const fetchRadioOneThousand = async (
+  params: IRadioListParams
+): Promise<{ stations: IRadioStation[]; totalItems: number }> => {
+  try {
+    const response: AxiosResponse<IRadioStation[]> = await apiClient.get('/stations/search', {
+      params: {
+        ...params,
+        hidebroken: true,
+      },
+    });
 
-  const response = await apiClient.get<IRadioStation[]>('/stations/search', {
-    params: {
-      params,
-      hidebroken: true,
-    },
-  });
+    if (!response.data) {
+      throw new Error('No data received from API');
+    }
 
-  // Colocar tratativa de erro
-
-  console.log('data =>', response.data)
-
-  return {
-    stations: response.data,
-    totalItems: 1000,
-  };
+    return {
+      stations: response.data,
+      totalItems: 1000,
+    };
+  } catch (error) {
+    console.error('Error in fetchRadioOneThousand:', error);
+    throw new Error(`Failed to fetch radio stations: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
 };
 
 export const fetchRadioList = async (): Promise<{ stations: IRadioStation[]; totalItems: number }> => {
-  const response = await apiClient.get<IRadioStation[]>('/stations/search', {
-    params: {
-      hidebroken: true,
-    },
-  });
+  try {
+    const response: AxiosResponse<IRadioStation[]> = await apiClient.get('/stations/search', {
+      params: {
+        hidebroken: true,
+      },
+    });
 
-  return {
-    stations: response.data,
-    totalItems: response.data.length,
-  };
+    if (!response.data) {
+      throw new Error('No data received from API');
+    }
+
+    return {
+      stations: response.data,
+      totalItems: response.data.length,
+    };
+  } catch (error) {
+    console.error('Error in fetchRadioList:', error);
+    throw new Error(`Failed to fetch radio list: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
 };
