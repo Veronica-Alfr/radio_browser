@@ -71,14 +71,14 @@ export const RadioListCompact: React.FC = () => {
     <div className="flex flex-col h-full p-2">
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-      <div className="mb-1 h-[calc(100vh-200px)] overflow-y-auto 
+      <div className="mb-1 h-[calc(100vh-200px)] overflow-y-auto pr-1
               scrollbar-thin scrollbar-thumb-white scrollbar-track-transparent">
         {isLoading ? (
           <div className="flex justify-center items-center h-20">
             <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
           </div>
         ) : (
-          <div className="">
+          <div>
               {paginatedStations.map((radio: IRadioStation) => (
                 <RadioCardCompact 
                   key={radio.stationuuid}

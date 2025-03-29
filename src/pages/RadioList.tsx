@@ -55,11 +55,11 @@ export const RadioList: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
-      <h1 className="text-2xl sm:text-3xl lg:text-4xl text-center font-bold mb-4 sm:mb-6">
+      <h1 className="text-2xl sm:text-3xl lg:text-4xl text-center font-bold sm:mb-4">
         Radio Browser
       </h1>
 
-      <h2 className="text-lg text-center text-gray-600 italic mb-8">
+      <h2 className="text-lg text-center text-gray-600 italic mb-6">
         Browse our collection of stations and find your perfect soundtrack
       </h2>
       
