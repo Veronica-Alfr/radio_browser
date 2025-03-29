@@ -41,8 +41,10 @@ export const FavoriteRadioList = () => {
         <div className="flex-grow w-full text-center mt-4 sm:mt-0">
           <h1 className="text-4xl font-bold">Favorite Stations</h1>
           <h2 className="text-lg mt-2 text-gray-600 italic">
-            {favorites.length === 0
-              ? "You haven't favorited any stations yet"
+            {filteredFavoriteStations.length === 0
+              ? debouncedSearchTerm
+                ? "No stations match your search"
+                : "You haven't favorited any stations yet"
               : `Listen to your favorite stations anytime!`}
           </h2>
         </div>
@@ -52,22 +54,22 @@ export const FavoriteRadioList = () => {
 
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 flex-grow justify-items-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {paginatedFavorites.map((station) => (
-          <div key={station.stationuuid} className="w-full max-w-lg min-w-[300px]">
+          <div key={station.stationuuid} className="w-full">
             <RadioCard radio={station} />
           </div>
         ))}
       </div>
 
-      {favorites.length > FAVORITES_PER_PAGE && (
-          <Pagination
-            currentOffset={currentOffset}
-            limit={FAVORITES_PER_PAGE}
-            totalItems={favorites.length}
-            isLoading={false}
-            onChange={setCurrentOffset}
-          />
+      {filteredFavoriteStations.length > FAVORITES_PER_PAGE && (
+        <Pagination
+          currentOffset={currentOffset}
+          limit={FAVORITES_PER_PAGE}
+          totalItems={filteredFavoriteStations.length}
+          isLoading={false}
+          onChange={setCurrentOffset}
+        />
       )}
     </div>
   );
