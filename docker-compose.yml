@@ -1,7 +1,7 @@
 services:
   frontend:
     container_name: app_frontend
-    build: ./src
+    build: .
     ports:
       - "5173:5173"
     expose:
