@@ -16,6 +16,7 @@ export interface IRadioContext extends IRadioCompactContext {
   currentStation: IRadioStation | null;
   favorites: IRadioStation[];
   isPlaying: boolean;
+  isFetching: boolean;
   togglePlay: (station: IRadioStation) => void;
   toggleFavorite: (station: IRadioStation) => void;
 }

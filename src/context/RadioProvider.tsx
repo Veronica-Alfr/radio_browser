@@ -22,7 +22,7 @@ export const RadioProvider: React.FC<IRadioProviderProps> = ({ children }) => {
     localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
   }, [favorites]);
 
-  const { data, isLoading, isError } = useRadios();
+  const { data, isLoading, isFetching, isError } = useRadios();
 
   const filteredStations = useStationFilter(data?.stations || [], searchTerm, currentPage * itemsPerPage, itemsPerPage);
 
@@ -78,6 +78,7 @@ export const RadioProvider: React.FC<IRadioProviderProps> = ({ children }) => {
       toggleFavorite,
       paginatedStations,
       isLoading,
+      isFetching,
       isError,
       totalItems: data?.totalItems || 0,
       searchTerm,
