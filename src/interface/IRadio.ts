@@ -51,7 +51,3 @@ export interface IRadioCard {
 export interface IRadioProviderProps {
     children: ReactNode;
 };
-
-export interface IRadioListCompactProps {
-    isSmallScreen: boolean
-};

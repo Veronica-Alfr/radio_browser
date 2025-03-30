@@ -9,7 +9,7 @@ import { RadioCompactProvider } from '../../context/RadioCompactProvider';
 export const HamburgerMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showRadioList, setShowRadioList] = useState(false);
-  const location = useLocation(); // Hook to get a rota atual
+  const location = useLocation();
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const toggleRadioList = () => setShowRadioList(!showRadioList);
@@ -37,7 +37,6 @@ export const HamburgerMenu: React.FC = () => {
 
             <div className="flex-1 flex flex-col overflow-hidden">
               {location.pathname === '/' ? (
-                // Mostrar apenas "Favorite List" na rota '/'
                 <Link
                   to="/radio/favorites"
                   className="text-lg hover:bg-gray-700 p-3 border-b border-gray-700"
@@ -46,7 +45,6 @@ export const HamburgerMenu: React.FC = () => {
                   Favorite List
                 </Link>
               ) : location.pathname === '/radio/favorites' ? (
-                // Mostrar o menu completo na rota '/radio/favorites'
                 <>
                   <Link
                     to="/"

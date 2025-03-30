@@ -7,10 +7,11 @@ import { SearchBar } from '../components/search/SearchBar';
 import { fetchRadioList } from '../api/radioListRequest';
 import { useRadioContext } from '../hooks/useRadiosContext';
 import { HamburgerMenu } from '../components/navigation/HamburgerMenu';
+import { LoadingCard } from '../components/loading/LoadingCards';
 
 export const RadioList: React.FC = () => {
   const queryClient = useQueryClient();
-  const { currentPage, setCurrentPage, paginatedStations, isLoading, isError, searchTerm,
+  const { currentPage, setCurrentPage, paginatedStations, isLoading, isFetching, isError, searchTerm,
     setSearchTerm, totalItems } = useRadioContext();
 
   const itemsPerPage = 10;
@@ -57,8 +58,12 @@ export const RadioList: React.FC = () => {
       
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-      {isLoading ? (
-        <div className="text-center py-8">Loading radio stations...</div>
+      {isFetching || isLoading ?(
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-6 sm:mb-8 justify-items-center">
+          {Array.from({ length: 10 }).map((_, index) => (
+            <LoadingCard key={index} />
+          ))}
+        </div>
       ) : (
         <div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-6 sm:mb-8 justify-items-center">
