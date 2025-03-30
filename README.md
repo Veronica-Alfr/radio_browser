@@ -1,141 +1,262 @@
-# Radio Browser Challenge
+<main>
+  <h1 align="center">Radio Browser</h1>
 
-## Introdução
+  <p>
+    O projeto faz a consumação da API Radio Browser. Nele listamos as estações de rádio para você ouvir, com opção para salvar nos favoritos. E nos seus favoritos você pode editar o nome das estações com bem quiser! 
+  </p>
 
-Este é um desafio para testar seus conhecimentos de Front-end;
+  <h3>Status do Projeto</h3>
+  
+    Requisitos obrigatórios finalizado ✅, melhorias a caminho 🧐👩🏽‍💻
 
-O objetivo é avaliar a sua forma de estruturação e autonomia em decisões para construir algo escalável utilizando o Framework sugerido na vaga aplicada.
+  <h3>Melhorias 👩🏽‍💻</h3>
+   
+    - Melhorar renderização da rota raiz e adiconar componente de Loading
+    - Adicionar testes integrados
+    - Colocar o site no ar
 
-[SPOILER] As instruções de entrega e apresentação do challenge estão no final deste Readme (=
+  <h3>Observações</h3>
+  
+    A URL da API atual é: 'https://de2.api.radio-browser.info/json'
 
-### Antes de começar
+    This is a challenge by Coodesh
+
+<summary><h3>🐋 Rodando no Docker vs Localmente</h3></summary>
+
+  <details>
+  
+## 👉 Com Docker
+
+    ⚠ Antes de começar, seu docker-compose precisa estar na versão 2.29 e o docker na versão 27.2 de preferência.
+
+    ⚠ Suba o projeto completo usando o comando docker-compose up --build na raiz do projeto.
+
+    - Esses serviços inicializarão o contêiner chamado app_frontend.
+
+    - A partir daqui, você pode executar o contêiner via CLI ou abri-los no VS Code.
+
+    ℹ️ As dependências são instaladas por meio do Dockerfile que é lido pelo Docker.
+
+    ✨ Dica: A extensão Remote - Containers é recomendada para que você possa desenvolver sua aplicação no container Docker diretamente no VS Code, assim como você faz com seus arquivos locais.
+
+<br />
+
+## 👉 Sem Docker
+
+    > :information_source: Instale as dependências com `npm install` no diretório frontend/.
+
+    ⚠ Não execute o comando npm audit fix! Ele atualiza várias dependências do projeto que podem causar conflitos.
+
+    - ✨ Dica: Para executar o projeto dessa forma, você deve ter o node instalado no seu computador.
+
+    ⚠ Espera-se que a versão do node usada esteja entre as mais recentes (v20+).
+
+    - Para executar o frontend, use o comando `npm run dev` em seu diretório.
+
+  <br/>
+
+  </details>
+
+  <h3>🛠 Tecnologias</h3>
+  
+  <p>As tecnologias usadas foram: React, TS, ContextAPI, Hooks, Docker, Eslint, Tailwind CSS e Vite.</p>
+
+  <h3>Author</h3>
+
+  <a href='https://github.com/Veronica-Alfr'>Verônica Alves</a>
+
+<summary><h3>📜 License</h3></summary>
+  <details>
  
-- O projeto deve utilizar a Linguagem e Framework específica na avaliação. Por exempo: Next.js, React.js, Nuxt.js, Vue.js, Angular e entre outras;
-- Considere como deadline da avaliação a partir do início do teste. Caso tenha sido convidado a realizar o teste e não seja possível concluir dentro deste período, avise a pessoa que o convidou para receber instruções sobre o que fazer.
-- Documentar todo o processo de investigação para o desenvolvimento da atividade (README.md no seu repositório); os resultados destas tarefas são tão importantes do que o seu processo de pensamento e decisões à medida que as completa, por isso tente documentar e apresentar os seus hipóteses e decisões na medida do possível.
 
-## Case
+      TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 
-As pessoas estão com saudades de voltar nos tempos antigos e uma das melhores maneiras de solucionar esse problema é trazer a rádio de volta.
-Sua tarefa para esse case será desenvolver uma aplicação que consuma uma API de rádio para que os usuários possam desfrutar e relembrar desse tempo, seguindo os requisitos propostos neste desafio.
+      1. Definitions.
 
-## Recursos
+      "License" shall mean the terms and conditions for use, reproduction, and
+      distribution as defined by Sections 1 through 9 of this document.
 
-1. Estudar a documentação da REST API: https://de1.api.radio-browser.info/json/stations/search?limit=10
-2. Utilizar Frameworks CSS, recomendamos alguns como:
+      "Licensor" shall mean the copyright owner or entity authorized by the copyright
+      owner that is granting the License.
 
-    - Tailwind CSS: https://tailwindcss.com/
-    - Material UI: https://material-ui.com/
-    - Angular Material: https://material.angular.io/
-    - Bootstrap: https://getbootstrap.com/
-    - Bulma: https://bulma.io/
-    - Outro de sua preferência
+      "Legal Entity" shall mean the union of the acting entity and all other entities
+      that control, are controlled by, or are under common control with that entity.
+      For the purposes of this definition, "control" means (i) the power, direct or
+      indirect, to cause the direction or management of such entity, whether by
+      contract or otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
 
-## Tela para Desktop
+      "You" (or "Your") shall mean an individual or Legal Entity exercising
+      permissions granted by this License.
 
-![Desktop](assets/desktop.png)
+      "Source" form shall mean the preferred form for making modifications, including
+      but not limited to software source code, documentation source, and configuration
+      files.
 
-## Tela para Mobile
+      "Object" form shall mean any form resulting from mechanical transformation or
+      translation of a Source form, including but not limited to compiled object code,
+      generated documentation, and conversions to other media types.
 
-![Mobile](assets/mobile.png)
+      "Work" shall mean the work of authorship, whether in Source or Object form, made
+      available under the License, as indicated by a copyright notice that is included
+      in or attached to the work (an example is provided in the Appendix below).
 
-## API
+      "Derivative Works" shall mean any work, whether in Source or Object form, that
+      is based on (or derived from) the Work and for which the editorial revisions,
+      annotations, elaborations, or other modifications represent, as a whole, an
+      original work of authorship. For the purposes of this License, Derivative Works
+      shall not include works that remain separable from, or merely link (or bind by
+      name) to the interfaces of, the Work and Derivative Works thereof.
 
-Para obter os dados, utilizaremos a API do Radio Browser:
+      "Contribution" shall mean any work of authorship, including the original version
+      of the Work and any modifications or additions to that Work or Derivative Works
+      thereof, that is intentionally submitted to Licensor for inclusion in the Work
+      by the copyright owner or by an individual or Legal Entity authorized to submit
+      on behalf of the copyright owner. For the purposes of this definition,
+      "submitted" means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems, and
+      issue tracking systems that are managed by, or on behalf of, the Licensor for
+      the purpose of discussing and improving the Work, but excluding communication
+      that is conspicuously marked or otherwise designated in writing by the copyright
+      owner as "Not a Contribution."
 
-- https://de1.api.radio-browser.info/json/stations/search?limit=10
+      "Contributor" shall mean Licensor and any individual or Legal Entity on behalf
+      of whom a Contribution has been received by Licensor and subsequently
+      incorporated within the Work.
 
-Exemplo da resposta:
+      2. Grant of Copyright License.
 
-```json
-[
-    {
-    "changeuuid": "f6a6d140-c065-4e3b-9bda-3fb752148ae7",
-    "stationuuid": "a25700ef-e952-4b73-8b4e-b92d938cb020",
-    "serveruuid": "46ce76c5-203b-43e3-b709-5748219f9fcd",
-    "name": "\tNewstalk ZB Auckland",
-    "url": "https://ais-nzme.streamguys1.com/nz_002_aac",
-    "url_resolved": "https://ais-nzme.streamguys1.com/nz_002_aac",
-    "homepage": "https://www.newstalkzb.co.nz/",
-    "favicon": "https://www.newstalkzb.co.nz/content/news/images/interface/icons/newstalkzb/apple-touch-icon.png",
-    "tags": "",
-    "country": "New Zealand",
-    "countrycode": "NZ",
-    "iso_3166_2": null,
-    "state": "BOP",
-    "language": "",
-    "languagecodes": "",
-    "votes": 41,
-    "lastchangetime": "2022-05-11 08:42:03",
-    "lastchangetime_iso8601": "2022-05-11T08:42:03Z",
-    "codec": "AAC+",
-    "bitrate": 65,
-    "hls": 0,
-    "lastcheckok": 1,
-    "lastchecktime": "2022-08-01 16:52:00",
-    "lastchecktime_iso8601": "2022-08-01T16:52:00Z",
-    "lastcheckoktime": "2022-08-01 16:52:00",
-    "lastcheckoktime_iso8601": "2022-08-01T16:52:00Z",
-    "lastlocalchecktime": "2022-08-01 12:24:26",
-    "lastlocalchecktime_iso8601": "2022-08-01T12:24:26Z",
-    "clicktimestamp": "2022-08-02 08:26:09",
-    "clicktimestamp_iso8601": "2022-08-02T08:26:09Z",
-    "clickcount": 51,
-    "clicktrend": 2,
-    "ssl_error": 0,
-    "geo_lat": null,
-    "geo_long": null,
-    "has_extended_info": false
-  },
-]
-```
+      Subject to the terms and conditions of this License, each Contributor hereby
+      grants to You a perpetual, worldwide, non-exclusive, no-charge, royalty-free,
+      irrevocable copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the Work and such
+      Derivative Works in Source or Object form.
 
-## Obrigatórios
+      3. Grant of Patent License.
 
-**Obrigatório 1 -** Você deverá atender aos seguintes casos de uso:
+      Subject to the terms and conditions of this License, each Contributor hereby
+      grants to You a perpetual, worldwide, non-exclusive, no-charge, royalty-free,
+      irrevocable (except as stated in this section) patent license to make, have
+      made, use, offer to sell, sell, import, and otherwise transfer the Work, where
+      such license applies only to those patent claims licensable by such Contributor
+      that are necessarily infringed by their Contribution(s) alone or by combination
+      of their Contribution(s) with the Work to which such Contribution(s) was
+      submitted. If You institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work or a
+      Contribution incorporated within the Work constitutes direct or contributory
+      patent infringement, then any patent licenses granted to You under this License
+      for that Work shall terminate as of the date such litigation is filed.
 
-- Como usuário, posso adicionar uma rádio na minha lista;
-- Como usuário, ver minha lista de rádios adicionadas;
-- Como usuário, posso remover uma rádio da minha lista;
-- Como usuário posso editar informações da rádio escolhida;
-- Como usuário, posso ouvir a rádio selecionado ao clicar o play;
-- Como usuário, posso parar de ouvir a rádio selecionada ao clicar no stop;
-- Como usuário, posso pesquisar a rádio que tenho interesse.
+      4. Redistribution.
 
-**Obrigatório 2 -** Filtrar por nome da rádio, país ou idioma com paginação mostrando 10 rádios por vez.
+      You may reproduce and distribute copies of the Work or Derivative Works thereof
+      in any medium, with or without modifications, and in Source or Object form,
+      provided that You meet the following conditions:
 
-**Obrigatório 3 -** Salvar as informações para quando o usuário retornar na aplicação deve ter as rádios salvas.
+      You must give any other recipients of the Work or Derivative Works a copy of
+      this License; and
+      You must cause any modified files to carry prominent notices stating that You
+      changed the files; and
+      You must retain, in the Source form of any Derivative Works that You distribute,
+      all copyright, patent, trademark, and attribution notices from the Source form
+      of the Work, excluding those notices that do not pertain to any part of the
+      Derivative Works; and
+      If the Work includes a "NOTICE" text file as part of its distribution, then any
+      Derivative Works that You distribute must include a readable copy of the
+      attribution notices contained within such NOTICE file, excluding those notices
+      that do not pertain to any part of the Derivative Works, in at least one of the
+      following places: within a NOTICE text file distributed as part of the
+      Derivative Works; within the Source form or documentation, if provided along
+      with the Derivative Works; or, within a display generated by the Derivative
+      Works, if and wherever such third-party notices normally appear. The contents of
+      the NOTICE file are for informational purposes only and do not modify the
+      License. You may add Your own attribution notices within Derivative Works that
+      You distribute, alongside or as an addendum to the NOTICE text from the Work,
+      provided that such additional attribution notices cannot be construed as
+      modifying the License.
+      You may add Your own copyright statement to Your modifications and may provide
+      additional or different license terms and conditions for use, reproduction, or
+      distribution of Your modifications, or for any such Derivative Works as a whole,
+      provided Your use, reproduction, and distribution of the Work otherwise complies
+      with the conditions stated in this License.
 
-**Obrigatório 4 -** Seguir a base do [wireframe](https://www.figma.com/file/TDuhDdbwdzIVQjNV3GF9Qi/Radio?node-id=0%3A1) (estilização ao seu critério)
+      5. Submission of Contributions.
 
-## Extras
+      Unless You explicitly state otherwise, any Contribution intentionally submitted
+      for inclusion in the Work by You to the Licensor shall be under the terms and
+      conditions of this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify the terms of
+      any separate license agreement you may have executed with Licensor regarding
+      such Contributions.
 
-Além do desafio proposto temos alguns diferenciais:
+      6. Trademarks.
 
-**Diferencial 1 -** Escrever Unit Tests ou E2E Test. Escolher a melhor abordagem e biblioteca;
+      This License does not grant permission to use the trade names, trademarks,
+      service marks, or product names of the Licensor, except as required for
+      reasonable and customary use in describing the origin of the Work and
+      reproducing the content of the NOTICE file.
 
-**Diferencial 2 -** Configurar Docker no Projeto para facilitar o Deploy da equipe de DevOps;
+      7. Disclaimer of Warranty.
 
-**Diferencial 3 -** Publique o projeto em alguma plataforma, como por exemplo a [Vercel](https://vercel.com/), [Netlify](https://www.netlify.com/) ou outra de sua preferência.
+      Unless required by applicable law or agreed to in writing, Licensor provides the
+      Work (and each Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied,
+      including, without limitation, any warranties or conditions of TITLE,
+      NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A PARTICULAR PURPOSE. You are
+      solely responsible for determining the appropriateness of using or
+      redistributing the Work and assume any risks associated with Your exercise of
+      permissions under this License.
 
-## Readme do Repositório
+      8. Limitation of Liability.
 
-- Deve conter o título do projeto
-- Uma descrição sobre o projeto em frase
-- Deve conter uma lista com linguagem, framework e/ou tecnologias usadas
-- Como instalar e usar o projeto (instruções)
-- Não esqueça o [.gitignore](https://www.toptal.com/developers/gitignore)
-- Se está usando github pessoal, referencie que é um challenge by coodesh:  
+      In no event and under no legal theory, whether in tort (including negligence),
+      contract, or otherwise, unless required by applicable law (such as deliberate
+      and grossly negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special, incidental,
+      or consequential damages of any character arising as a result of this License or
+      out of the use or inability to use the Work (including but not limited to
+      damages for loss of goodwill, work stoppage, computer failure or malfunction, or
+      any and all other commercial damages or losses), even if such Contributor has
+      been advised of the possibility of such damages.
 
->  This is a challenge by [Coodesh](https://coodesh.com/)
+      9. Accepting Warranty or Additional Liability.
 
-## Finalização e Instruções para a Apresentação
+      While redistributing the Work or Derivative Works thereof, You may choose to
+      offer, and charge a fee for, acceptance of support, warranty, indemnity, or
+      other liability obligations and/or rights consistent with this License. However,
+      in accepting such obligations, You may act only on Your own behalf and on Your
+      sole responsibility, not on behalf of any other Contributor, and only if You
+      agree to indemnify, defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason of your
+      accepting any such warranty or additional liability.
 
-1. Adicione o link do repositório com a sua solução no teste
-2. Adicione o link da apresentação do seu projeto no README.md.
-3. Verifique se o Readme está bom e faça o commit final em seu repositório;
-4. Envie e aguarde as instruções para seguir. Sucesso e boa sorte. =)
+      END OF TERMS AND CONDITIONS
 
-## Suporte
+      APPENDIX: How to apply the Apache License to your work
 
-Use a [nossa comunidade](https://discord.gg/rdXbEvjsWu) para tirar dúvidas sobre o processo ou envie uma mensagem diretamente a um especialista no chat da plataforma. 
+      To apply the Apache License to your work, attach the following boilerplate
+      notice, with the fields enclosed by brackets "{}" replaced with your own
+      identifying information. (Don't include the brackets!) The text should be
+      enclosed in the appropriate comment syntax for the file format. We also
+      recommend that a file or class name and description of purpose be included on
+      the same "printed page" as the copyright notice for easier identification within
+      third-party archives.
+
+         Copyright 2024 Verônica Alves
+
+         Licensed under the Apache License, Version 2.0 (the "License");
+         you may not use this file except in compliance with the License.
+         You may obtain a copy of the License at
+
+           http://www.apache.org/licenses/LICENSE-2.0
+
+         Unless required by applicable law or agreed to in writing, software
+         distributed under the License is distributed on an "AS IS" BASIS,
+         WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+         See the License for the specific language governing permissions and
+         limitations under the License.
+  
+  </details>
+    
+</main>
