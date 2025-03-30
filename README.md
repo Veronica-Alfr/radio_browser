@@ -11,7 +11,8 @@
 
   <h3>Melhorias 👩🏽‍💻</h3>
    
-    - Melhorar renderização da rota raiz e adiconar componente de Loading
+    - Melhorar renderização da rota raiz 
+    - Adiconar componente de Loading na rota 'radios/favorites'
     - Adicionar testes integrados
     - Colocar o site no ar
 
