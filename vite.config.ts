@@ -7,5 +7,12 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 5173,
-  }
+    proxy: {
+      '/api': {
+        target: 'https://de2.api.radio-browser.info',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '/json/stations'),
+      },
+    },
+  },
 })
