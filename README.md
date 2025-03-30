@@ -20,6 +20,8 @@
   
     A URL da API atual é: 'https://de2.api.radio-browser.info/json'
 
+    Link do video da apresentação: https://www.loom.com/share/2b038f62f9554e05a43036798cabebbf
+
     This is a challenge by Coodesh
 
 <summary><h3>🐋 Rodando no Docker vs Localmente</h3></summary>
