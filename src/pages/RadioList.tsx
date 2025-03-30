@@ -6,6 +6,7 @@ import { Pagination } from '../components/pagination/Pagination';
 import { SearchBar } from '../components/search/SearchBar';
 import { fetchRadioList } from '../api/radioListRequest';
 import { useRadioContext } from '../hooks/useRadiosContext';
+import { HamburgerMenu } from '../components/navigation/HamburgerMenu';
 
 export const RadioList: React.FC = () => {
   const queryClient = useQueryClient();
@@ -45,6 +46,7 @@ export const RadioList: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <HamburgerMenu />
       <h1 className="text-2xl sm:text-3xl lg:text-4xl text-center font-bold sm:mb-4">
         Radio Browser
       </h1>

@@ -1,18 +1,8 @@
-// components/search/SearchBar.tsx
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useDebounce } from '../../hooks/useDebounce';
+import { ISearchBar } from '../../interface/ISearchBar';
 
-interface SearchBarProps {
-  searchTerm: string;
-  setSearchTerm: (term: string) => void;
-  placeholder?: string;
-}
-
-export const SearchBar: React.FC<SearchBarProps> = ({ 
-  searchTerm, 
-  setSearchTerm,
-  placeholder = "Search..." 
-}) => {
+export const SearchBar: React.FC<ISearchBar> = ({searchTerm, setSearchTerm, placeholder = "Search..." }) => {
   const [inputValue, setInputValue] = useState(searchTerm);
   const debouncedSearchTerm = useDebounce(inputValue, 300);
 

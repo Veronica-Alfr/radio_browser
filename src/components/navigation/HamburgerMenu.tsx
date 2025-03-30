@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { GrClose } from 'react-icons/gr';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { RadioListCompact } from '../radio/RadioListCompact';
 import { RadioCompactProvider } from '../../context/RadioCompactProvider';
 
 export const HamburgerMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showRadioList, setShowRadioList] = useState(false);
+  const location = useLocation(); // Hook to get a rota atual
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const toggleRadioList = () => setShowRadioList(!showRadioList);
@@ -35,33 +36,47 @@ export const HamburgerMenu: React.FC = () => {
             </div>
 
             <div className="flex-1 flex flex-col overflow-hidden">
-              <Link 
-                to="/" 
-                className="text-lg hover:bg-gray-700 p-3 border-b border-gray-700"
-                onClick={toggleMenu}
-              >
-                Home
-              </Link>
-
-              <div className="flex flex-col flex-1 overflow-hidden">
-                <button 
-                  onClick={toggleRadioList}
-                  className="flex items-center justify-between text-lg hover:bg-gray-700 p-3 border-b border-gray-700"
+              {location.pathname === '/' ? (
+                // Mostrar apenas "Favorite List" na rota '/'
+                <Link
+                  to="/radio/favorites"
+                  className="text-lg hover:bg-gray-700 p-3 border-b border-gray-700"
+                  onClick={toggleMenu}
                 >
-                  <span>Radio Stations</span>
-                  {showRadioList ? (
-                    <MdKeyboardArrowUp className="text-xl" />
-                  ) : (
-                    <MdKeyboardArrowDown className="text-xl" />
-                  )}
-                </button>
+                  Favorite List
+                </Link>
+              ) : location.pathname === '/radio/favorites' ? (
+                // Mostrar o menu completo na rota '/radio/favorites'
+                <>
+                  <Link
+                    to="/"
+                    className="text-lg hover:bg-gray-700 p-3 border-b border-gray-700"
+                    onClick={toggleMenu}
+                  >
+                    Home
+                  </Link>
 
-                {showRadioList && (
-                  <div className="flex-1 overflow-hidden">
-                    <RadioListCompact />
+                  <div className="flex flex-col flex-1 overflow-hidden">
+                    <button
+                      onClick={toggleRadioList}
+                      className="flex items-center justify-between text-lg hover:bg-gray-700 p-3 border-b border-gray-700"
+                    >
+                      <span>Radio Stations</span>
+                      {showRadioList ? (
+                        <MdKeyboardArrowUp className="text-xl" />
+                      ) : (
+                        <MdKeyboardArrowDown className="text-xl" />
+                      )}
+                    </button>
+
+                    {showRadioList && (
+                      <div className="flex-1 overflow-hidden">
+                        <RadioListCompact />
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
+                </>
+              ) : null}
             </div>
           </div>
         </div>

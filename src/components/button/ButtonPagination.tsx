@@ -18,5 +18,3 @@ export const ButtonPagination: React.FC<IButtonEnumeratePage> = ({ isSmallScreen
     </button>
   );
 };
-
-// export default ButtonPagination;
