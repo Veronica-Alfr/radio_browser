@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRadioContext } from "../../hooks/useRadiosContext";
 import { IRadioCard } from "../../interface/IRadio";
 import { useEditStationsContext } from "../../hooks/useEditStationsContext";
+import radioIcon from '../../assets/images/radio-svgrepo-com.svg';
 
 export const RadioCard = ({ radio, isEditable }: IRadioCard & { isEditable?: boolean }) => {
   const { currentStation, isPlaying, favorites, togglePlay, toggleFavorite } = useRadioContext();
@@ -45,7 +46,7 @@ export const RadioCard = ({ radio, isEditable }: IRadioCard & { isEditable?: boo
             loading="lazy"
             className="w-12 h-12 min-w-[3rem] object-cover rounded"
             onError={(e) => {
-              (e.target as HTMLImageElement).src = '/placeholder.png';
+              (e.target as HTMLImageElement).src = radioIcon;
             }}
           />
         )}
