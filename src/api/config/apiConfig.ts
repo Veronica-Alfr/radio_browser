@@ -1,3 +1,3 @@
-import setupInterceptors from "../../erros/getAxiosError";
+import setupInterceptors from "../../middleware/erros/getAxiosError";
 
 setupInterceptors();

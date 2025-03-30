@@ -1,4 +1,4 @@
-import apiClient from '../api/urlSearch';
+import apiClient from '../../api/urlSearch';
 import type { AxiosError, AxiosResponse } from 'axios';
 
 const setupInterceptors = () => {

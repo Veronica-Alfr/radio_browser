@@ -23,7 +23,7 @@ export const fetchRadioOneHundred = async (
     };
   } catch (error) {
     console.error('Error in fetchRadioOneHundred:', error);
-    throw error; // Já tratado pelo interceptor
+    throw error;
   }
 };
 
