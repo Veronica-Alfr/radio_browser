@@ -9,6 +9,12 @@
   
     Requisitos obrigatórios finalizado ✅, melhorias a caminho 🧐👩🏽‍💻
 
+  <h3>Melhorias 👩🏽‍💻</h3>
+   
+    - Melhorar renderização da rota raiz e adiconar componente de Loading
+    - Adicionar testes integrados
+    - Colocar o site no ar
+
   <h3>Observações</h3>
   
     A URL da API atual é: 'https://de2.api.radio-browser.info/json'
