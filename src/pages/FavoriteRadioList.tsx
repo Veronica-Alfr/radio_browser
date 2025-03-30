@@ -1,10 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useRadioContext } from '../hooks/useRadiosContext';
 import { RadioCard } from '../components/radio/RadioCard';
 import { Pagination } from '../components/pagination/Pagination';
 import { HamburgerMenu } from '../components/navigation/HamburgerMenu';
-import { useDebounce } from '../hooks/useDebounce';
 import { SearchBar } from '../components/search/SearchBar';
+import { useStationFilter } from '../hooks/useStationFilter';
 
 const FAVORITES_PER_PAGE = 10;
 
@@ -13,22 +13,11 @@ export const FavoriteRadioList = () => {
   const [currentOffset, setCurrentOffset] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const debouncedSearchTerm = useDebounce(searchTerm, 300);
-
-  const filteredFavoriteStations = useMemo(() => {
-    if (!favorites) return [];
-    return debouncedSearchTerm
-      ? favorites.filter((station) =>
-          station.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
-          station.country.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
-          station.language.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
-        )
-      : favorites;
-  }, [favorites, debouncedSearchTerm]);
-
-  const paginatedFavorites = filteredFavoriteStations.slice(
+  const paginatedFavorites = useStationFilter(
+    favorites,
+    searchTerm,
     currentOffset,
-    currentOffset + FAVORITES_PER_PAGE
+    FAVORITES_PER_PAGE
   );
 
   return (
@@ -41,8 +30,8 @@ export const FavoriteRadioList = () => {
         <div className="flex-grow w-full text-center mt-4 sm:mt-0">
           <h1 className="text-4xl font-bold">Favorite Stations</h1>
           <h2 className="text-lg mt-2 text-gray-600 italic">
-            {filteredFavoriteStations.length === 0
-              ? debouncedSearchTerm
+            {paginatedFavorites.length === 0
+              ? searchTerm
                 ? "No stations match your search"
                 : "You haven't favorited any stations yet"
               : `Listen to your favorite stations anytime!`}
@@ -62,11 +51,11 @@ export const FavoriteRadioList = () => {
         ))}
       </div>
 
-      {filteredFavoriteStations.length > FAVORITES_PER_PAGE && (
+      {favorites.length > FAVORITES_PER_PAGE && (
         <Pagination
           currentOffset={currentOffset}
           limit={FAVORITES_PER_PAGE}
-          totalItems={filteredFavoriteStations.length}
+          totalItems={favorites.length}
           isLoading={false}
           onChange={setCurrentOffset}
         />

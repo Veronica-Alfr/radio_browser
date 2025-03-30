@@ -1,8 +1,18 @@
+// components/search/SearchBar.tsx
 import { ChangeEvent, useEffect, useState } from 'react';
-import { ISearchBarProps } from '../../interface/ISearchBar';
 import { useDebounce } from '../../hooks/useDebounce';
 
-export const SearchBar: React.FC<ISearchBarProps> = ({ searchTerm, setSearchTerm }) => {
+interface SearchBarProps {
+  searchTerm: string;
+  setSearchTerm: (term: string) => void;
+  placeholder?: string;
+}
+
+export const SearchBar: React.FC<SearchBarProps> = ({ 
+  searchTerm, 
+  setSearchTerm,
+  placeholder = "Search..." 
+}) => {
   const [inputValue, setInputValue] = useState(searchTerm);
   const debouncedSearchTerm = useDebounce(inputValue, 300);
 
@@ -20,7 +30,7 @@ export const SearchBar: React.FC<ISearchBarProps> = ({ searchTerm, setSearchTerm
         type="text"
         value={inputValue}
         onChange={handleInputChange}
-        placeholder="Search..."
+        placeholder={placeholder}
         className="w-full text-black p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:border-blue-300"
       />
     </div>

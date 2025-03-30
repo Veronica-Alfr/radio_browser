@@ -1,52 +1,27 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect } from "react";
 import { IRadioStation } from "../../interface/IRadio";
 import { Pagination } from "../pagination/Pagination";
 import { SearchBar } from "../search/SearchBar";
-import { RadioCardCompact } from "./RadioCardCompact";
-import { fetchRadioOneHundred } from "../../api/radioListRequest";
-import { useRadiosOneHundred } from "../../hooks/useRadios";
-import { useDebounce } from "../../hooks/useDebounce";
 import { useQueryClient } from "@tanstack/react-query";
+import { fetchRadioList } from "../../api/radioListRequest";
+import { useRadioCompactContext } from "../../hooks/useRadiosContext";
+import { RadioCardCompact } from "./RadioCardCompact";
 
 export const RadioListCompact: React.FC = () => {
   const queryClient = useQueryClient();
-  const [searchTerm, setSearchTerm] = useState('');
-  const debouncedSearchTerm = useDebounce(searchTerm, 300);
-  const [currentPage, setCurrentPage] = useState(0);
+  
+  const { searchTerm, setSearchTerm, currentPage, setCurrentPage, paginatedStations, 
+    isLoading, isError, totalItems } = useRadioCompactContext();
+
   const itemsPerPage = 10;
-
-  const params = {limit: itemsPerPage, offset: currentPage * itemsPerPage};
-
-  const { data, isLoading, isError } = useRadiosOneHundred(params);
+  const limit = {limit: 100};
 
   useEffect(() => {
-    const nextPage = currentPage + 1;
-    const nextParams = {
-      limit: itemsPerPage,
-      offset: nextPage * itemsPerPage
-    };
-
     queryClient.prefetchQuery({
-      queryKey: ['radios-compact', nextParams.offset],
-      queryFn: () => fetchRadioOneHundred(nextParams),
+      queryKey: ['radios-compact', limit],
+      queryFn: () => fetchRadioList(limit),
     });
   }, [currentPage, queryClient]);
-
-  const filteredStations = useMemo(() => {
-    if (!data?.stations) return [];
-    return debouncedSearchTerm
-      ? data.stations.filter((station: IRadioStation) =>
-          station.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
-          station.country.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
-          station.language.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
-    )
-      : data.stations;
-  }, [data, debouncedSearchTerm]);
-
-  const paginatedStations = filteredStations.slice(
-    currentPage * itemsPerPage,
-    (currentPage + 1) * itemsPerPage
-  );
 
   const handlePageChange = (newOffset: number) => {
     const newPage = Math.floor(newOffset / itemsPerPage);
@@ -55,7 +30,7 @@ export const RadioListCompact: React.FC = () => {
 
   useEffect(() => {
     setCurrentPage(0);
-  }, [debouncedSearchTerm]);
+  }, [searchTerm, setCurrentPage]);
 
   if (isError) {
     return (
@@ -79,12 +54,9 @@ export const RadioListCompact: React.FC = () => {
           </div>
         ) : (
           <div>
-              {paginatedStations.map((radio: IRadioStation) => (
-                <RadioCardCompact 
-                  key={radio.stationuuid}
-                  radio={radio} 
-                />
-              ))}
+            {paginatedStations.map((radio: IRadioStation) => (
+              <RadioCardCompact radio={radio} />
+            ))}
           </div>
         )}
       </div>
@@ -93,7 +65,7 @@ export const RadioListCompact: React.FC = () => {
         <Pagination
           currentOffset={currentPage * itemsPerPage}
           limit={itemsPerPage}
-          totalItems={data?.totalItems || 100}
+          totalItems={totalItems || 100}
           isSmallScreen={true}
           isLoading={isLoading}
           onChange={handlePageChange}

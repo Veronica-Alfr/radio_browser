@@ -1,44 +1,34 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { IRadioStation } from '../interface/IRadio';
 import { RadioCard } from '../components/radio/RadioCard';
 import { Pagination } from '../components/pagination/Pagination';
-import { useRadios } from '../hooks/useRadios';
 import { SearchBar } from '../components/search/SearchBar';
 import { fetchRadioList } from '../api/radioListRequest';
+import { useRadioContext } from '../hooks/useRadiosContext';
 
 export const RadioList: React.FC = () => {
   const queryClient = useQueryClient();
-  const [currentPage, setCurrentPage] = useState(0);
-  const [searchTerm, setSearchTerm] = useState('');
+  const { currentPage, setCurrentPage, paginatedStations, isLoading, isError, searchTerm,
+    setSearchTerm, totalItems } = useRadioContext();
+
   const itemsPerPage = 10;
 
   useEffect(() => {
     queryClient.prefetchQuery({
       queryKey: ['radios'],
-      queryFn: fetchRadioList,
+      queryFn: () => fetchRadioList,
     });
   }, [queryClient]);
-
-  const { data, isLoading, isError } = useRadios();
-
-  const filteredStations = data?.stations?.filter((station: IRadioStation) =>
-    station.name.toLowerCase().includes(searchTerm.toLowerCase())
-  ) || [];
-
-  const paginatedStations = filteredStations.slice(
-    currentPage * itemsPerPage,
-    (currentPage + 1) * itemsPerPage
-  );
 
   const handlePageChange = (newOffset: number) => {
     const newPage = Math.floor(newOffset / itemsPerPage);
     setCurrentPage(newPage);
     
-    if (newPage < Math.floor(filteredStations.length / itemsPerPage)) {
+    if (newPage < Math.floor(totalItems / itemsPerPage)) {
       queryClient.prefetchQuery({
         queryKey: ['radios'],
-        queryFn: fetchRadioList,
+        queryFn: () => fetchRadioList,
       });
     }
   };
@@ -77,7 +67,7 @@ export const RadioList: React.FC = () => {
           <Pagination
             currentOffset={currentPage * itemsPerPage}
             limit={itemsPerPage}
-            totalItems={filteredStations.length}
+            totalItems={totalItems}
             isLoading={isLoading}
             onChange={handlePageChange}
           />

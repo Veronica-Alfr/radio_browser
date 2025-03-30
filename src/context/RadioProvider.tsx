@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { IRadioProviderProps, IRadioStation } from '../interface/IRadio';
 import { RadioContext } from './createContext';
+import { useRadios } from '../hooks/useRadios';
+import { useStationFilter } from '../hooks/useStationFilter';
 
 let audio: HTMLAudioElement | null = null;
 const FAVORITES_KEY = 'radio_favorites';
@@ -12,10 +14,22 @@ export const RadioProvider: React.FC<IRadioProviderProps> = ({ children }) => {
   const saved = localStorage.getItem(FAVORITES_KEY);
     return saved ? JSON.parse(saved) : [];
   });
+  const [currentPage, setCurrentPage] = useState(0);
+  const [searchTerm, setSearchTerm] = useState('');
+  const itemsPerPage = 10;
 
   useEffect(() => {
     localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
   }, [favorites]);
+
+  const { data, isLoading, isError } = useRadios();
+
+  const filteredStations = useStationFilter(data?.stations || [], searchTerm, currentPage * itemsPerPage, itemsPerPage);
+
+  const paginatedStations = filteredStations.slice(
+    currentPage * itemsPerPage,
+    (currentPage + 1) * itemsPerPage
+  );
 
   const togglePlay = (station: IRadioStation) => {
     if (currentStation?.stationuuid === station.stationuuid) {
@@ -56,7 +70,21 @@ export const RadioProvider: React.FC<IRadioProviderProps> = ({ children }) => {
     }, []);
 
   return (
-    <RadioContext.Provider value={{ currentStation, isPlaying, togglePlay, favorites, toggleFavorite }}>
+    <RadioContext.Provider value={{ 
+      currentStation, 
+      isPlaying, 
+      togglePlay, 
+      favorites, 
+      toggleFavorite,
+      paginatedStations,
+      isLoading,
+      isError,
+      totalItems: data?.totalItems || 0,
+      searchTerm,
+      setSearchTerm,
+      currentPage,
+      setCurrentPage,
+    }}>
       {children}
     </RadioContext.Provider>
   );
